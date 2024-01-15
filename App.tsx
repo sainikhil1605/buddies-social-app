@@ -1,16 +1,39 @@
 import React from "react";
-import { createTheme, ThemeProvider } from "@rneui/themed";
-import Component from "./components/MyComponent";
+import {
+  createTheme,
+  darkColors,
+  lightColors,
+  ThemeProvider,
+  useThemeMode,
+} from "@rneui/themed";
 
-const theme = createTheme({
-  lightColors: {},
-  darkColors: {},
-});
+import { Platform, useColorScheme } from "react-native";
+import { AppProvider } from "./utils/store";
+import Navigation from "./components/Navigation";
 
 export default function App() {
+  const colorSchema = useColorScheme();
+  const theme = createTheme({
+    lightColors: {
+      ...Platform.select({
+        default: lightColors.platform.android,
+        ios: lightColors.platform.ios,
+      }),
+    },
+    darkColors: {
+      ...Platform.select({
+        default: darkColors.platform.android,
+        ios: darkColors.platform.ios,
+      }),
+    },
+    mode: colorSchema,
+  });
+
   return (
     <ThemeProvider theme={theme}>
-      <Component />
+      <AppProvider value={{}}>
+        <Navigation />
+      </AppProvider>
     </ThemeProvider>
   );
 }
