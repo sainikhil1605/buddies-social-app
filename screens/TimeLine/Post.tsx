@@ -1,5 +1,5 @@
 import { Avatar, Icon, makeStyles, useTheme } from "@rneui/themed";
-import { useState } from "react";
+import { memo, useState } from "react";
 import { Image, Text, View } from "react-native";
 import { avatarData } from "../../constants/data";
 
@@ -47,7 +47,7 @@ const Post = ({
             size={30}
             onPress={() =>
               setPosts((prev) => [
-                ...prev.map((post) =>
+                ...prev.map((post, index) =>
                   post.id === id ? { ...post, liked: !post.liked } : post
                 ),
               ])
@@ -88,6 +88,7 @@ const Post = ({
     </View>
   );
 };
+
 export default Post;
 const useStyles = makeStyles((theme) => ({
   container: {

@@ -9,6 +9,7 @@ import { Icon } from "@rneui/themed";
 import Feed from "../screens/Feed";
 import Messages from "../screens/Messages";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
+import Post from "../screens/Post";
 export default function Navigation() {
   const { setMode, mode } = useThemeMode();
 
@@ -67,7 +68,7 @@ export default function Navigation() {
         />
         <Tab.Screen
           name="Post"
-          component={TimeLine}
+          component={Post}
           options={{
             tabBarIcon: ({ focused, color, size }) => (
               <Icon
@@ -77,6 +78,7 @@ export default function Navigation() {
                 size={30}
               />
             ),
+
             tabBarLabel: () => null,
           }}
         />
