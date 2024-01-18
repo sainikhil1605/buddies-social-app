@@ -10,6 +10,7 @@ import Feed from "../screens/Feed";
 import Messages from "../screens/Messages";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import Post from "../screens/Post";
+import Chat from "../screens/Chat";
 export default function Navigation() {
   const { setMode, mode } = useThemeMode();
 
@@ -26,6 +27,7 @@ export default function Navigation() {
       <MaterialTab.Navigator initialRouteName="TimeLine" tabBar={() => null}>
         <MaterialTab.Screen name="TimeLine" component={TimeLine} />
         <MaterialTab.Screen name="Messages" component={Messages} />
+        <MaterialTab.Screen name="Chat" component={Chat} />
       </MaterialTab.Navigator>
     );
   };
@@ -66,6 +68,7 @@ export default function Navigation() {
             tabBarLabel: () => null,
           }}
         />
+
         <Tab.Screen
           name="Post"
           component={Post}

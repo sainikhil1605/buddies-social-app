@@ -1,18 +1,19 @@
 import { createContext, useState } from "react";
-import { postData } from "../constants/data";
+import users from "../constants/data";
 
 const AppContext = createContext({
   theme: "light",
 });
 
 const AppProvider = ({ value, children }) => {
-  const [posts, setPosts] = useState(postData);
+  const [userData, setUserData] = useState(users);
+
   return (
     <AppContext.Provider
       value={{
         ...value,
-        posts,
-        setPosts,
+        userData,
+        setUserData,
       }}
     >
       {children}

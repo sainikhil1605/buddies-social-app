@@ -1,30 +1,41 @@
 import { Avatar, Icon, Input, makeStyles } from "@rneui/themed";
-import { FlatList, SafeAreaView, Text, View } from "react-native";
+import { FlatList, Pressable, SafeAreaView, Text, View } from "react-native";
 import GestureRecognizer from "react-native-swipe-gestures";
-import { messages } from "../constants/data";
+import users from "../../constants/data";
 
 const Messages = ({ navigation }) => {
   const styles = useStyles();
-  const handleSwipRight = () => {
-    navigation.navigate("TimeLine");
+
+  const handleClick = (withUser) => {
+    console.log(withUser);
+    navigation.navigate("Chat", {
+      withUser: withUser,
+    });
   };
 
-  const renderMessages = ({ name, image, lastMessage, time }) => {
+  const renderMessages = ({ withUser, messages }) => {
+    const user = users.find((user) => user.username === withUser);
+    const lastMessage = messages[messages.length - 1];
     return (
-      <View style={styles.messageContainer}>
+      <Pressable
+        style={styles.messageContainer}
+        onPress={() => handleClick(withUser)}
+      >
         <View style={styles.avtrContainer}>
           <View style={styles.imgContainer}>
-            <Avatar size={65} rounded source={image} />
+            <Avatar size={65} rounded source={user?.image} />
           </View>
           <View>
-            <Text style={[styles.text, { fontWeight: "bold" }]}>{name}</Text>
-            <Text style={[styles.text]}>{lastMessage}</Text>
+            <Text style={[styles.text, { fontWeight: "bold" }]}>
+              {user?.name}
+            </Text>
+            <Text style={[styles.text]}>{lastMessage.message}</Text>
           </View>
         </View>
         <View>
-          <Text style={[styles.text]}>{time}</Text>
+          <Text style={[styles.text]}>{lastMessage.time}</Text>
         </View>
-      </View>
+      </Pressable>
     );
   };
   return (
@@ -40,7 +51,7 @@ const Messages = ({ navigation }) => {
           leftIcon={<Icon name="search" type="evilicon" />}
         />
         <FlatList
-          data={messages}
+          data={users[0].conversations}
           renderItem={({ item }) => renderMessages(item)}
         />
       </View>

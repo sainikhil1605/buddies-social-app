@@ -25,15 +25,24 @@ import { AppContext } from "../../utils/store";
 
 const TimeLine = () => {
   const styles = useStyles();
-  const { posts, setPosts } = useContext(AppContext);
-  const memoizedPosts = React.useMemo(() => posts, [posts]);
+  const { userData, setUserData } = useContext(AppContext);
+  const memoizedPosts = React.useMemo(() => userData, [userData]);
   return (
     <SafeAreaView style={[styles.container]}>
       <FlatList
         alwaysBounceVertical
         alwaysBounceHorizontal={false}
         data={memoizedPosts}
-        renderItem={({ item }) => <Post setPosts={setPosts} {...item} />}
+        renderItem={({ item }) =>
+          item.posts.map((post) => (
+            <Post
+              setPosts={setUserData}
+              name={item.name}
+              profileImage={item.image}
+              {...post}
+            />
+          ))
+        }
         keyExtractor={(item) => item.id}
         ListHeaderComponent={() => (
           <>

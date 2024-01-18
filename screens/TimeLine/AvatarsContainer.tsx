@@ -1,6 +1,6 @@
 import { Avatar, makeStyles } from "@rneui/themed";
 import { FlatList, View } from "react-native";
-import { avatarData } from "../../constants/data";
+import users from "../../constants/data";
 
 const AvatarsContainer = () => {
   const styles = useStyles();
@@ -9,7 +9,7 @@ const AvatarsContainer = () => {
       <FlatList
         horizontal
         alwaysBounceHorizontal
-        data={avatarData}
+        data={users}
         showsHorizontalScrollIndicator={false}
         renderItem={({ item }) => (
           <Avatar

@@ -6,7 +6,7 @@ import { AppContext } from "../../utils/store";
 
 const Post = ({ navigation }) => {
   const [image, setImage] = useState(null);
-  const { posts, setPosts } = useContext(AppContext);
+  const { userData, setUserDate } = useContext(AppContext);
 
   const { theme } = useTheme();
   const handlePress = async (type) => {
@@ -29,10 +29,10 @@ const Post = ({ navigation }) => {
     getImage();
   }, []);
   const handleSubmit = () => {
-    setPosts((prev) => [
-      ...prev,
-      { id: posts.length + 1, name: "John Doe", likes: 0, image, caption },
-    ]);
+    // setuserDate((prev) => [
+    //   ...prev,
+    //   { id: posts.length + 1, name: "John Doe", likes: 0, image, caption },
+    // ]);
     navigation.navigate("TimeLine");
   };
   const [caption, setCaption] = useState("");
