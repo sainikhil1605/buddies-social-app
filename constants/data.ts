@@ -61,7 +61,7 @@ const users = [
     bio: "Consectetur adipiscing elit.",
     posts: [
       {
-        id: "1",
+        id: "2",
         image: require("../assets/woman1_post1.webp"),
         caption: "Sunset vibes",
         likes: 150,
@@ -95,7 +95,7 @@ const users = [
     bio: "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     posts: [
       {
-        id: "1",
+        id: "3",
         image: require("../assets/man1_post1.webp"),
         caption: "Exploring nature",
         likes: 80,
@@ -124,7 +124,7 @@ const users = [
     bio: "Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui.",
     posts: [
       {
-        id: "1",
+        id: "4",
         image: require("../assets/woman1_post1.webp"),
         caption: "City lights",
         likes: 200,
@@ -158,7 +158,7 @@ const users = [
     bio: "Quisque velit nisi, pretium ut lacinia in, elementum id enim.",
     posts: [
       {
-        id: "1",
+        id: "5",
         image: require("../assets/man1_post1.webp"),
         caption: "Mountain trek",
         likes: 180,
@@ -192,7 +192,7 @@ const users = [
     bio: "Pellentesque in ipsum id orci porta dapibus.",
     posts: [
       {
-        id: "1",
+        id: "6",
         image: require("../assets/woman1_post1.webp"),
         caption: "Beach vibes",
         likes: 250,
@@ -226,7 +226,7 @@ const users = [
     bio: "Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem.",
     posts: [
       {
-        id: "1",
+        id: "7",
         image: require("../assets/man1_post1.webp"),
         caption: "City exploration",
         likes: 180,
@@ -265,7 +265,7 @@ const users = [
     bio: "Nulla quis lorem ut libero malesuada feugiat.",
     posts: [
       {
-        id: "1",
+        id: "8",
         image: require("../assets/man1_post1.webp"),
         caption: "Nature walk",
         likes: 220,
@@ -294,7 +294,7 @@ const users = [
     bio: "Donec sollicitudin molestie malesuada.",
     posts: [
       {
-        id: "1",
+        id: "9",
         image: require("../assets/man1_post1.webp"),
         caption: "Mountain sunrise",
         likes: 190,
@@ -328,7 +328,7 @@ const users = [
     bio: "Vivamus suscipit tortor eget felis porttitor volutpat.",
     posts: [
       {
-        id: "1",
+        id: "10",
         image: require("../assets/man1_post1.webp"),
         caption: "Cherry blossoms",
         likes: 200,

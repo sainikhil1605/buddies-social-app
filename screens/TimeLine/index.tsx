@@ -40,6 +40,7 @@ const TimeLine = () => {
               name={item.name}
               profileImage={item.image}
               {...post}
+              userId={item.id}
             />
           ))
         }

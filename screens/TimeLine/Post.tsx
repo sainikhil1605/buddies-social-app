@@ -1,7 +1,8 @@
 import { Avatar, Icon, makeStyles, useTheme } from "@rneui/themed";
-import { memo, useState } from "react";
+import { memo, useContext, useState } from "react";
 import { Image, Text, View } from "react-native";
 import { avatarData } from "../../constants/data";
+import { AppContext } from "../../utils/store";
 
 const Post = ({
   setPosts,
@@ -12,10 +13,27 @@ const Post = ({
   likes,
   caption,
   liked,
+  userId,
 }) => {
   const styles = useStyles();
   const { theme } = useTheme();
-
+  const { userData } = useContext(AppContext);
+  const handleLike = () => {
+    const parsedData = userData.map((user) => {
+      if (user.id === userId) {
+        const newPosts = user.posts.map((post) => {
+          if (post.id === id) {
+            return { ...post, liked: !post.liked };
+          }
+          return { ...post };
+        });
+        return { ...user, posts: newPosts };
+      }
+      return user;
+    });
+    console.log(parsedData);
+    setPosts([...parsedData]);
+  };
   return (
     <View>
       <View style={styles.heading}>
@@ -45,13 +63,7 @@ const Post = ({
             type="ionicon"
             color={liked ? "red" : theme.colors.black}
             size={30}
-            onPress={() =>
-              setPosts((prev) => [
-                ...prev.map((post, index) =>
-                  post.id === id ? { ...post, liked: !post.liked } : post
-                ),
-              ])
-            }
+            onPress={() => handleLike()}
           />
           <Icon
             name="comment"
