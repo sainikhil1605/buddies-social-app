@@ -1,11 +1,12 @@
 import { Avatar, Icon, Input, makeStyles } from "@rneui/themed";
 import { FlatList, Pressable, SafeAreaView, Text, View } from "react-native";
 import GestureRecognizer from "react-native-swipe-gestures";
-import users from "../../constants/data";
+import { useContext } from "react";
+import { AppContext } from "../../utils/store";
 
 const Messages = ({ navigation }) => {
   const styles = useStyles();
-
+  const { userData, setUserData } = useContext(AppContext);
   const handleClick = (withUser) => {
     console.log(withUser);
     navigation.navigate("Chat", {
@@ -14,7 +15,7 @@ const Messages = ({ navigation }) => {
   };
 
   const renderMessages = ({ withUser, messages }) => {
-    const user = users.find((user) => user.username === withUser);
+    const user = userData.find((user) => user.username === withUser);
     const lastMessage = messages[messages.length - 1];
     return (
       <Pressable
@@ -40,21 +41,23 @@ const Messages = ({ navigation }) => {
   };
   return (
     <SafeAreaView style={[styles.container]}>
-      <View>
-        <Input
-          inputContainerStyle={styles.searchBar}
-          placeholder="Search"
-          leftIconContainerStyle={{
-            marginLeft: 10,
-            marginRight: 10,
-          }}
-          leftIcon={<Icon name="search" type="evilicon" />}
-        />
-        <FlatList
-          data={users[0].conversations}
-          renderItem={({ item }) => renderMessages(item)}
-        />
-      </View>
+      <GestureRecognizer>
+        <View>
+          <Input
+            inputContainerStyle={styles.searchBar}
+            placeholder="Search"
+            leftIconContainerStyle={{
+              marginLeft: 10,
+              marginRight: 10,
+            }}
+            leftIcon={<Icon name="search" type="evilicon" />}
+          />
+          <FlatList
+            data={userData[0].conversations}
+            renderItem={({ item }) => renderMessages(item)}
+          />
+        </View>
+      </GestureRecognizer>
     </SafeAreaView>
   );
 };

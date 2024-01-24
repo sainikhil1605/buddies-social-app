@@ -7,6 +7,7 @@ const AppContext = createContext({
 
 const AppProvider = ({ value, children }) => {
   const [userData, setUserData] = useState(users);
+  const [isLogged, setIsLogged] = useState(false);
 
   return (
     <AppContext.Provider
@@ -14,6 +15,8 @@ const AppProvider = ({ value, children }) => {
         ...value,
         userData,
         setUserData,
+        isLogged,
+        setIsLogged,
       }}
     >
       {children}

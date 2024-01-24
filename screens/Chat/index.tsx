@@ -6,6 +6,8 @@ import { useTheme } from "@rneui/themed";
 import { Input } from "@rneui/themed";
 import { Divider } from "@rneui/themed";
 import { AppContext } from "../../utils/store";
+import { formatTimeTo12Hr } from "../../utils/date";
+import { useNavigation } from "@react-navigation/native";
 
 const Chat = ({ navigation, route }) => {
   const { theme } = useTheme();
@@ -13,13 +15,25 @@ const Chat = ({ navigation, route }) => {
   const withUser = route?.params?.withUser;
   const styles = useStyles();
   const [text, setText] = useState("");
+  // useEffect(() => {
+  // navigation.getParent().setOptions({ tabBarStyle: { display: "none" } });
+  //   return () => {
+  //     navigation.getParent().setOptions({ tabBarStyle: { display: "flex" } });
+  //   };
+  // }, [navigation]);
   if (!withUser) return null;
+
   const messages = userData[0].conversations.find(
     (item) => item.withUser === withUser
   ).messages;
 
   const handleSend = () => {
-    const newMessages = messages.concat({ message: text, from: "john_doe" });
+    console.log(formatTimeTo12Hr(new Date()));
+    const newMessages = messages.concat({
+      message: text,
+      from: "john_doe",
+      time: formatTimeTo12Hr(new Date()),
+    });
     const newConversations = userData[0].conversations.map((item) =>
       item.withUser === withUser
         ? { ...item, messages: newMessages, lastMessage: text }
@@ -88,7 +102,7 @@ const useStyles = makeStyles((theme) => ({
   },
   msgInputContainer: {
     alignSelf: "flex-end",
-    backgroundColor: theme.colors.greyOutline,
+    backgroundColor: theme.colors.grey4,
     padding: 10,
     fontSize: 20,
     color: theme.colors.black,
