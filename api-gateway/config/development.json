@@ -1,0 +1,6 @@
+{
+  "services": {
+    "auth": "http://localhost:3001",
+    "chat": "http://localhost:3002"
+  }
+}
