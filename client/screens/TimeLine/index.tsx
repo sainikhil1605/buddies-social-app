@@ -8,6 +8,7 @@ import {
   StyleSheet,
   Text,
   View,
+  StatusBar
 } from "react-native";
 import {
   makeStyles,
@@ -25,10 +26,12 @@ import { AppContext } from "../../utils/store";
 
 const TimeLine = () => {
   const styles = useStyles();
-  const { userData, setUserData } = useContext(AppContext);
+  const { userData, setUserData,theme } = useContext(AppContext);
   const memoizedPosts = React.useMemo(() => userData, [userData]);
+  
   return (
-    <SafeAreaView style={[styles.container]}>
+    <SafeAreaView style={[styles.container]}  >
+      <StatusBar backgroundColor={theme==="black"?"white":"black"} />
       <FlatList
         alwaysBounceVertical
         alwaysBounceHorizontal={false}
