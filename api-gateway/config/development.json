@@ -1,6 +1,7 @@
 {
   "services": {
     "auth": "http://localhost:3001",
-    "chat": "http://localhost:3002"
+    "chat": "http://localhost:3002",
+    "post": "http://localhost:3003"
   }
 }

@@ -1,7 +1,6 @@
 import { useNavigation } from "@react-navigation/native";
 import { Icon, useTheme } from "@rneui/themed";
 import { Image, View } from "react-native";
-
 const Header = () => {
   const { theme } = useTheme();
   const navigation = useNavigation();
@@ -15,7 +14,11 @@ const Header = () => {
     >
       <Image
         resizeMode="contain"
-        source={require("../../assets/logo.png")}
+        source={
+          theme.mode === "dark"
+            ? require("../../assets/buddies-logo2.jpg")
+            : require("../../assets/buddies-logo3.jpg")
+        }
         style={{
           width: 150,
           height: 40,

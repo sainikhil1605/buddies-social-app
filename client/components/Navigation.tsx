@@ -12,9 +12,13 @@ import { createMaterialTopTabNavigator } from "@react-navigation/material-top-ta
 import Post from "../screens/Post";
 import Chat from "../screens/Chat";
 import Login from "../screens/Login";
+import Profile from "../screens/Profile";
+import EditProfile from "../screens/EditProfile";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 export default function Navigation() {
   const { setMode, mode } = useThemeMode();
   const { isLogged } = useContext(AppContext);
+  const ProfileStack = createNativeStackNavigator();
   const Tab = createBottomTabNavigator();
 
   const MaterialTab = createMaterialTopTabNavigator();
@@ -22,6 +26,14 @@ export default function Navigation() {
   console.log(isLogged, "isLogged");
   const handleOnPress = () => {
     setMode(mode === "dark" ? "light" : "dark");
+  };
+  const ProfileStackNavigator = () => {
+    return (
+      <ProfileStack.Navigator screenOptions={{ headerShown: false }}>
+        <ProfileStack.Screen name="Profile" component={Profile} />
+        <ProfileStack.Screen name="EditProfile" component={EditProfile} />
+      </ProfileStack.Navigator>
+    );
   };
   const TabLineNavigator = () => {
     return (
@@ -104,7 +116,7 @@ export default function Navigation() {
             />
             <Tab.Screen
               name="Profile"
-              component={TimeLine}
+              component={ProfileStackNavigator}
               options={{
                 tabBarIcon: ({ focused, color, size }) => (
                   <Icon
