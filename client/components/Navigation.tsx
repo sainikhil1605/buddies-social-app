@@ -115,7 +115,7 @@ export default function Navigation() {
               }}
             />
             <Tab.Screen
-              name="Profile"
+              name="ProfileNavigator"
               component={ProfileStackNavigator}
               options={{
                 tabBarIcon: ({ focused, color, size }) => (

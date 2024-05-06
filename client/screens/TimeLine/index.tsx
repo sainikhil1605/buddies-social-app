@@ -31,7 +31,7 @@ const TimeLine = () => {
   
   return (
     <SafeAreaView style={[styles.container]}  >
-      <StatusBar backgroundColor={theme==="black"?"white":"black"} />
+      <StatusBar backgroundColor={theme==="black"?"black":"white"} barStyle={theme==="black"?"light-content":"dark-content"}/>
       <FlatList
         alwaysBounceVertical
         alwaysBounceHorizontal={false}
@@ -63,6 +63,6 @@ const useStyles = makeStyles((theme) => ({
   container: {
     flex: 1,
     backgroundColor: theme.colors.background,
-    paddingTop: 30,
+    paddingTop: 0,
   },
 }));
