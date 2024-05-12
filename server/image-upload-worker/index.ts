@@ -13,9 +13,9 @@ const s3 = new AWS.S3();
 // Configure MySQL connection
 const db = mysql.createConnection({
   host: 'localhost',
-  user: 'your-mysql-user',
-  password: 'your-mysql-password',
-  database: 'your-database'
+  user: 'root',
+  password: '123456789',
+  database: 'mysql://root:12345678@localhost:3306/mydb'
 });
 db.connect();
 
@@ -25,7 +25,7 @@ function processMessage(message) {
 
   // Upload the image to S3
   const params = {
-    Bucket: 'your-s3-bucket',
+    Bucket: 'buddies-appx',
     Key: `images/${userId}/${Date.now()}`,
     Body: imageUrl
   };

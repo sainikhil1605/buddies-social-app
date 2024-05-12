@@ -5,6 +5,7 @@ const cors = require("cors");
 const helmet = require("helmet");
 const morgan = require("morgan");
 const { createProxyMiddleware } = require("http-proxy-middleware");
+const authMiddleware = require("./authMiddleware");
 const config = require("config");
 require("dotenv").config();
 // Create an instance of Express app
@@ -79,7 +80,7 @@ function rateLimitAndTimeout(req: Request, res: Response, next: NextFunction) {
 
 // Apply the rate limit and timeout middleware to the proxy
 app.use(rateLimitAndTimeout);
-
+app.use(authMiddleware);
 // Set up proxy middleware for each microservice
 services.forEach(({ route, target }) => {
   // Proxy options

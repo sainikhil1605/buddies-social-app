@@ -1,40 +1,41 @@
 import { Request, Response } from "express";
-import AWS from 'aws-sdk';
-const express = require("express");
+
+const express = require('express');
+const AWS = require('aws-sdk');
 
 const app = express();
+const port = 3000;
 
-
+// Configure AWS SDK
 AWS.config.update({
-  credentials:{
-    accessKeyId: process.env.AWS_ACCESS_KEY_ID||"",
-    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY||""
-  },
-  region: 'us-east-1'
-})
-const sqs = new AWS.SQS();
+  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+  region: 'your-region'
+});
+const s3 = new AWS.S3();
 
-// Route for creating a new post
-app.post('/posts', (req:Request, res:Response) => {
-  const { userId, content } = req.body;
-
-  // Send the post to the SQS queue
+// Route for generating presigned URL
+app.get('/presigned-url', (req:Request, res:Response) => {
+  const filename=req.user;
+  // Configure parameters for generating presigned URL
   const params = {
-    MessageBody: JSON.stringify({ userId, content }),
-    QueueUrl: 'your-sqs-queue-url'
+    Bucket: 'your-s3-bucket',
+    Key: `uploads/${filename}`, // Key is the path to the file in the bucket
+    Expires: 600 // URL expires in 10 minutes (600 seconds)
   };
 
-  sqs.sendMessage(params, (err, data) => {
+  // Generate presigned URL
+  s3.getSignedUrl('putObject', params, (err, url) => {
     if (err) {
-      console.error('Error sending message to SQS:', err);
-      return res.status(500).send('Error creating post');
+      console.error('Error generating presigned URL:', err);
+      return res.status(500).json({ error: 'Internal Server Error' });
     }
 
-    res.send('Post created successfully');
+    // Send the presigned URL to the client
+    res.json({ url });
   });
 });
 
-
-app.listen(3003, () => {
-  console.log("Post Service is running on port 3003");
+app.listen(port, () => {
+  console.log(`Post service running at http://localhost:${port}`);
 });
