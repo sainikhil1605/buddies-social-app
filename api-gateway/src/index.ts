@@ -27,6 +27,10 @@ const services = [
     route: "/auth",
     target: config.get("services").auth,
   },
+  {
+    route: '/post',
+    target: config.get("services").post
+  }
 ];
 
 // Define rate limit constants
@@ -80,7 +84,7 @@ function rateLimitAndTimeout(req: Request, res: Response, next: NextFunction) {
 
 // Apply the rate limit and timeout middleware to the proxy
 app.use(rateLimitAndTimeout);
-app.use(authMiddleware);
+
 // Set up proxy middleware for each microservice
 services.forEach(({ route, target }) => {
   // Proxy options
@@ -90,12 +94,19 @@ services.forEach(({ route, target }) => {
     pathRewrite: {
       [`^${route}`]: "",
     },
+    on: {
+      proxyReq: (proxyReq: any, req: any) => {
+        if (req.user) {
+          proxyReq.setHeader('X-User-ID', req.user.userId);
+        }
+      }
+    }
   };
 
   // Apply rate limiting and timeout middleware before proxying
-  app.use(route, rateLimitAndTimeout, createProxyMiddleware(proxyOptions));
+  app.use(route,rateLimitAndTimeout,authMiddleware,createProxyMiddleware(proxyOptions));
 });
-
+app.use(express.json())
 // Handler for route-not-found
 app.use((_req: Request, res: Response) => {
   res.status(404).send({

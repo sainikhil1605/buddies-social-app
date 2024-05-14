@@ -3,6 +3,7 @@ import { MediaTypeOptions, launchImageLibraryAsync } from "expo-image-picker";
 import { useContext, useEffect, useState } from "react";
 import { Image, View } from "react-native";
 import { AppContext } from "../../utils/store";
+import axiosInstance from "../../utils/axiosInstance";
 
 const Post = ({ navigation }) => {
   const [image, setImage] = useState(null);
@@ -28,11 +29,32 @@ const Post = ({ navigation }) => {
     const getImage = async () => await handlePress("photos");
     getImage();
   }, []);
-  const handleSubmit = () => {
+  const handleSubmit = async() => {
     // setuserDate((prev) => [
     //   ...prev,
     //   { id: posts.length + 1, name: "John Doe", likes: 0, image, caption },
     // ]);
+   
+    const blob=await fetch(image).then(r=>r.blob());
+    console.log(blob);
+    const resp=await axiosInstance.post("/post/presigned-url",{
+      fileType:blob.type
+    });
+    const {url}=resp.data;
+    console.log(url);
+    try{
+    const respUpload=await fetch(url, {
+      method: 'PUT',
+      body: blob, // Convert the local file URI to a blob
+      headers: {
+        'Content-Type': blob.type // Adjust based on your file type
+      },
+    });
+    console.log(respUpload)
+  }catch(e){
+    console.log(e);
+  }
+    
     navigation.navigate("TimeLine");
   };
   const [caption, setCaption] = useState("");

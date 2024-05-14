@@ -5,5 +5,5 @@ app.use(express.json());
 app.post("/signup", signUp);
 app.post("/login", login);
 app.listen(3001, () => {
-  console.log("Auth service is running on port 3000");
+  console.log("Auth service is running on port 3001   ");
 });

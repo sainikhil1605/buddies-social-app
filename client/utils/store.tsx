@@ -6,11 +6,12 @@ const AppContext = createContext({
   theme: "light",
   authenticate: (token: string) => {},
   isLogged: false,
-});
 
+});
 const AppProvider = ({ value, children }: { value: any; children: any }) => {
   const [userData, setUserData] = useState(users);
   const [isLogged, setIsLogged] = useState(false);
+  const [token,setToken]=useState("");
   const authenticate = (token: string) => {
     if (token) {
       AsyncStorage.setItem("token", token);
